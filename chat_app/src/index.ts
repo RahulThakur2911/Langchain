@@ -15,7 +15,6 @@ const input = promptSync({ sigint: true });
 const startChat = async () => {
     console.log("=== Chat Started! (Type 'exit' to stop the chat) ===\n");
 
-    // 1. generateContent ki jagah chats.create use karo memory ke liye
     const chat = googleGenAI.chats.create({
         model: "gemini-2.5-flash",
         config: {
@@ -23,11 +22,9 @@ const startChat = async () => {
         }
     });
 
-    // 2. Loop chalao taaki chat continuous chalti rahe
     while (true) {
         const userInput = input("You: ");
 
-        // Agar user 'exit' likhe, to loop tod do aur chat band kar do
         if (userInput?.toLowerCase() === 'exit') {
             console.log("\nAI: Chalo bhai, milte hain baad mein! Bye. 👋");
             break;
@@ -37,8 +34,7 @@ const startChat = async () => {
 
         try {
             console.log("AI is typing...");
-            
-            // 3. chat.sendMessage purani history ke saath naya message bhejta hai
+
             const res = await chat.sendMessage({
                 message: userInput
             });
